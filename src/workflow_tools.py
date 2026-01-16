@@ -83,3 +83,28 @@ Côté Frontend (React/Convex), ton application écoute les changements du State
 
 Expérience fluide : Comme le précise la doc, ce pattern est le meilleur pour l'interaction utilisateur car il évite les latences d'un superviseur central. L'agent "Expert" parle directement au client.
 """
+
+@tool
+def query_knwoledge_base(query: str) -> str:
+    """
+    Recherche dans la documentation officielle de SafeGuard (FAQ, conditions générales, knowledge base).
+    A utiliser pour répondre aux questions précises sur les garanties ou procédures.
+    """
+    # Ici, on va connecter le moteur RAG
+    # Pour le moment, on simule une réponse
+    return f"Résultat du RAG pour '{query}': Nos contrats Auto couvrent le bris de glace sans franchise en formule Premium."
+
+@tool
+def escalate_to_human(reason: str) -> str:
+    """
+    Transfère la conversation à un agent humain.
+    A utiliser si l'IA ne trouve pas la solution ou si le client est très mécontent.
+    """
+    return f"ALERTE : Transfert vers un humain requis. Raison: {reason}"
+
+@tool
+def provide_final_solution(solution: str) -> str:
+    """
+    Donne la réponse finale au client et marque le ticket comme 'résolu'.
+    """
+    return f"Solution validée : {solution}"
