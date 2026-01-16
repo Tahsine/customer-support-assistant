@@ -32,3 +32,30 @@ class InsuranceSupportState(AgentState):
 
     # ID de dossier pour l'agent de sinistre
     claim_id: NotRequired[str]
+
+### NOTE
+"""
+Pourquoi ces choix ? (Explications)
+1. Le choix des InsuranceStep
+Nous avons calqué les étapes sur la structure de ton Mock Website :
+
+concierge : C'est le point d'entrée unique. Son rôle est de classifier l'intention. Si l'utilisateur dit "J'ai eu un accident", le concierge ne traite pas le problème, il fait un handoff immédiat vers le claims_manager.
+
+sales_expert : Cet agent aura accès à tes documents (Agentic RAG). Il est séparé des autres car il a besoin d'un ton persuasif et d'outils de comparaison d'offres.
+
+claims_manager : C'est ici que ton Screen Sharing brillera. Cet agent est spécialisé dans le guidage étape par étape.
+
+2. L'utilisation de policy_type
+Dans le pattern Handoff, le but est l'efficacité. Si le concierge détecte dès le début que l'utilisateur clique sur "Auto", il remplit policy_type="auto". Quand le sales_expert prend le relais, son prompt système verra cette donnée et pourra dire : "Bonjour ! Je vois que vous vous intéressez à notre assurance Auto, quelle formule vous tente ?" au lieu de "En quoi puis-je vous aider ?".
+
+3. Le champ active_feature
+C'est ici que tu connectes ton Backend (LangChain) à ton Frontend (React) via Convex.
+
+Si l'agent claims_manager décide qu'il est temps d'aider l'utilisateur visuellement, il utilise un outil qui met à jour le state : active_feature="screen_sharing".
+
+Convex étant temps réel, ton widget React verra ce changement instantanément et ouvrira la fenêtre de partage d'écran automatiquement pour l'utilisateur.
+
+Pourquoi le pattern Handoff est parfait ici ?
+Selon ta documentation, ce pattern permet à l'agent spécialisé d'avoir une interaction directe avec l'utilisateur. C'est crucial pour ta feature Voice : tu ne veux pas d'un agent intermédiaire (orchestrateur) qui rajoute de la latence. L'agent "Sales" doit parler directement au client pour une fluidité maximale.
+
+"""
