@@ -8,12 +8,12 @@ STEP_CONFIG = {
         "tools": [query_knwoledge_base, transfer_to_sales, transfer_to_claims],
         "requires": [], # Pas de données préalables requises
     },
-    "concierge": {
+    "sales_expert": {
         "prompt": SALE_EXPERT_PROMPT,
         "tools": [query_knwoledge_base, provide_final_solution, transfer_to_claims], # Peut rediriger vers les sinistres si besoin
         "requires": ["policy_type"], # Nécessite de savoir quel type d'assurance
     },
-    "concierge": {
+    "claims_manager": {
         "prompt": CLAIMS_MANAGER_PROMPT,
         "tools": [query_knwoledge_base, escalate_to_human, transfer_to_sales], # Peut rediriger vers les ventes après un sinistre
         "requires": [],

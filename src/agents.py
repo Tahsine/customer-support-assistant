@@ -1,3 +1,7 @@
+from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
@@ -8,7 +12,8 @@ from workflow_tools import transfer_to_sales, transfer_to_claims, query_knwoledg
 
 # 1. Model Initialisation
 model = ChatGoogleGenerativeAI(
-    model="gemini-3-flash-preview"
+    model="gemini-3-flash-preview",
+    api_key=getenv("GOOGLE_API_KEY")
 )
 
 # 2. On rassemble TOUS les outils définis.
