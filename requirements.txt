@@ -1,6 +1,8 @@
 fastapi>=0.123.5
 langchain
 langchain-google-genai>=4.2.0
+langchain-ollama
+langchain-chroma
 langchain-core>=1.1.0
 langgraph>=1.0.4
 python-dotenv
