@@ -20,7 +20,7 @@ while user_input != "q":
         config=config
     )
     
-    print(result["messages"][-1].text)
+    print(result["messages"][-1].content)  # .text is only for gemini 3
     print(f"Current step: {result.get('current_step')}")
     print(f"Policy: {result.get('policy_type')}")
     user_input = input("User:")

@@ -1,21 +1,13 @@
-from os import getenv
-from dotenv import load_dotenv
-load_dotenv()
-
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
 
 from states import InsuranceSupportState
 from middleware import apply_step_config
 from workflow_tools import transfer_to_sales, transfer_to_claims, query_knwoledge_base, escalate_to_human, provide_final_solution
+from llm_model import ollama_llm, gemini_model
 
 # 1. Model Initialisation
-model = ChatGoogleGenerativeAI(
-    model="gemini-3-flash-preview",
-    api_key=getenv("GOOGLE_API_KEY")
-)
-
+model = gemini_model
 # 2. On rassemble TOUS les outils définis.
 # Même si le middleware filtre les outils par étape, l'agent doit connaître
 # l'existence de la boîte à outils complète au démarrage.
